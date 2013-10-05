@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Ventana extends JFrame {
+public class VentanaExtraRegistro extends JFrame {
 
 	private final JLabel bienvenidos = new JLabel ("Bienvenidos ");
 	private final JLabel nombre = new JLabel ("Nombre       *");
@@ -26,6 +26,7 @@ public class Ventana extends JFrame {
 	private final JButton cancelar = new JButton ("Cancelar");
 	private final JButton Imagen = new JButton (miImagen);
 	
+	
 	private final JComboBox dia = new JComboBox();
 	private final JComboBox mes = new JComboBox();
 	private final JComboBox anio = new JComboBox();
@@ -35,7 +36,8 @@ public class Ventana extends JFrame {
     
 
 	
-	public Ventana() {
+	@SuppressWarnings("unchecked")
+	public VentanaExtraRegistro() {
 		setTitle("Registro");
 		setSize(900,600);
 		setLocationRelativeTo(null);

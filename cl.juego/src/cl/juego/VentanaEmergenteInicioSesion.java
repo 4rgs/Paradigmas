@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 @SuppressWarnings("serial")
-public class Ventana3 extends JFrame {
+public class VentanaEmergenteInicioSesion extends JFrame {
 	
 	private final JLabel usuario = new JLabel ("Usuario       ");
 	
@@ -24,7 +24,7 @@ public class Ventana3 extends JFrame {
 	private final JButton aceptar = new JButton ("aceptar");
 	
 	
-	public Ventana3(){
+	public VentanaEmergenteInicioSesion(){
 		
 	setTitle("Inicio de sesion");
 	setSize(400,300);
@@ -74,7 +74,7 @@ Registrarse.addActionListener ( new  ActionListener(){
 				
 				public void actionPerformed (ActionEvent evento)
 				{
-					new Ventana();
+					new VentanaExtraRegistro();
 					setVisible(false); 
 				}
 				}	

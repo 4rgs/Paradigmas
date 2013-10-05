@@ -27,7 +27,7 @@ public class Menu extends JFrame{
 	private  static JButton dec_bin = new JButton(imagen);
 	
 	BorderLayout borderLayout1 = new BorderLayout();
-	private static JTabbedPane  pestaña =new JTabbedPane(1);
+	private static JTabbedPane  pestana =new JTabbedPane(1);
 	private static JPanel p1=new JPanel();
 	private static JPanel p2=new JPanel();
 	private static JPanel p3=new JPanel();
@@ -43,13 +43,13 @@ public class Menu extends JFrame{
 		p1.setLayout(null);
 		dec_bin.setBounds(30, 20,100,100);
 		p1.add(dec_bin);
-		pestaña.setBounds(150, 90, 600, 300);
-		pestaña.addTab("Todos", p1);
-		pestaña.addTab("Decimal a Binario", p2);
-		pestaña.addTab("Binario a Decimal", p3);
-		pestaña.addTab("Suma y Resta", p4);
-		pestaña.addTab("Multiplicacion", p5);
-		this.add(pestaña);
+		pestana.setBounds(150, 90, 600, 300);
+		pestana.addTab("Todos", p1);
+		pestana.addTab("Decimal a Binario", p2);
+		pestana.addTab("Binario a Decimal", p3);
+		pestana.addTab("Suma y Resta", p4);
+		pestana.addTab("Multiplicacion", p5);
+		this.add(pestana);
 		boton1.setBounds(12,15,110,20);
 		this.add(boton1);
 		boton2.setBounds(125,15,110,20);
@@ -64,13 +64,13 @@ public class Menu extends JFrame{
 		this.add(boton6);
 		btnJugar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				new Ventana2();
+				new VentanaJuegoCartas();
 				setVisible(false);
 			}
 		});
 		btnIdentificar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				new Ventana3();				
+				new VentanaEmergenteInicioSesion();				
 			}
 			
 		});
