@@ -27,16 +27,6 @@ public class VentanaExtraRegistro extends JFrame {
 	private final JButton Imagen = new JButton (miImagen);
 	
 	
-	private final JComboBox dia = new JComboBox();
-	private final JComboBox mes = new JComboBox();
-	private final JComboBox anio = new JComboBox();
-	private final JComboBox Campo_Edad = new JComboBox();
-	private final JComboBox Campo_imagen = new JComboBox();
-	
-    
-
-	
-	@SuppressWarnings("unchecked")
 	public VentanaExtraRegistro() {
 		setTitle("Registro");
 		setSize(900,600);
@@ -86,40 +76,6 @@ public class VentanaExtraRegistro extends JFrame {
 		campo_nombre.setFont( new Font( "Arial",Font.BOLD, 15));
 		campo_apellidos.setFont( new Font( "Arial",Font.BOLD, 15));
 		campo_usuario.setFont( new Font( "Arial",Font.BOLD, 15));
-		
-		dia.setPreferredSize(new Dimension(50,30));
-		mes.setPreferredSize(new Dimension(80,30));
-		anio.setPreferredSize(new Dimension(60,30));
-		Campo_Edad.setPreferredSize(new Dimension(50,30));
-		Campo_imagen.setPreferredSize(new Dimension(250,30));
-		
-		for(int i=1;i<32;i++){
-			dia.addItem(i);
-		}
-		
-		mes.addItem("enero");
-		mes.addItem("febrero");
-		mes.addItem("marzo");
-		mes.addItem("abril");
-		mes.addItem("mayo");
-		
-		for(int i=1900;i<2100;i++){
-			anio.addItem(i);
-		}
-		
-		for(int i=7;i<25;i++){
-			Campo_Edad.addItem(i);
-		}
-		
-		Campo_imagen.addItem("Elefante");
-		Campo_imagen.addItem("Perro");
-		Campo_imagen.addItem("Gato");
-		Campo_imagen.addItem("Canario");
-		Campo_imagen.addItem("Pez");
-		Campo_imagen.addItem("Aguila");
-		Campo_imagen.addItem("Chanchito");
-		
-		
 		
 		
 		Registrarse.addActionListener ( new  ActionListener(){
@@ -187,21 +143,7 @@ public class VentanaExtraRegistro extends JFrame {
 		layout.putConstraint(SpringLayout.WEST,fecha,50,SpringLayout.WEST,contenedor);
 		layout.putConstraint(SpringLayout.NORTH,fecha,200,SpringLayout.NORTH,contenedor);
 		
-		layout.putConstraint(SpringLayout.WEST,dia,220,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,dia,200,SpringLayout.NORTH,contenedor);
-		
-		layout.putConstraint(SpringLayout.WEST,mes,270,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,mes,200,SpringLayout.NORTH,contenedor);
-		
-		layout.putConstraint(SpringLayout.WEST,anio,350,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,anio,200,SpringLayout.NORTH,contenedor);
-		
-		layout.putConstraint(SpringLayout.WEST,edad,50,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,edad,250,SpringLayout.NORTH,contenedor);
-
-		layout.putConstraint(SpringLayout.WEST,Campo_Edad,220,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,Campo_Edad,250,SpringLayout.NORTH,contenedor);
-		
+	
 		layout.putConstraint(SpringLayout.WEST,usuario,50,SpringLayout.WEST,contenedor);
 		layout.putConstraint(SpringLayout.NORTH,usuario,300,SpringLayout.NORTH,contenedor);
 		
@@ -215,9 +157,6 @@ public class VentanaExtraRegistro extends JFrame {
 		layout.putConstraint(SpringLayout.WEST,Imagen,550,SpringLayout.WEST,contenedor);
 		layout.putConstraint(SpringLayout.NORTH,Imagen,100,SpringLayout.NORTH,contenedor);
 		
-		layout.putConstraint(SpringLayout.WEST,Campo_imagen,550,SpringLayout.WEST,contenedor);
-		layout.putConstraint(SpringLayout.NORTH,Campo_imagen,350,SpringLayout.NORTH,contenedor);
-
 		
 		contenedor.add(bienvenidos);
 		contenedor.add(nombre);
@@ -230,13 +169,8 @@ public class VentanaExtraRegistro extends JFrame {
 		contenedor.add(campo_usuario);
 		contenedor.add(cancelar);
 		contenedor.add(Registrarse);
-		contenedor.add(dia);
-		contenedor.add(mes);
-		contenedor.add(anio);
-		contenedor.add(Campo_Edad);
 		contenedor.add(Imagen);
 		contenedor.add(vista_previa);
-		contenedor.add(Campo_imagen);
 	
 		this.setVisible(true);
 	}

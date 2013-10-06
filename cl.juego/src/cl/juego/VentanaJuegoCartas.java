@@ -14,84 +14,84 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class VentanaJuegoCartas extends JFrame {
 	
-	private final JButton menu = new JButton ("Menu");
-	private final JButton pausa = new JButton ("Pausa");
-	private final JButton comprobar = new JButton ("comprobar");
-	private final JButton restaurar = new JButton ("Restaurar");
-	private final JButton ayuda = new JButton ("Ayuda");
+	private static JButton menu = new JButton ("Menu");
+	private static JButton pausa = new JButton ("Pausa");
+	private static JButton comprobar = new JButton ("comprobar");
+	private static JButton restaurar = new JButton ("Restaurar");
+	private static JButton ayuda = new JButton ("Ayuda");
 	
-	ImageIcon Bin1 = new ImageIcon("0 azul.png"); 
-	ImageIcon Bin2 = new ImageIcon("0 celeste.png"); 
-	ImageIcon Bin3 = new ImageIcon("0 naranja.png"); 
-	ImageIcon Bin4 = new ImageIcon("0 rosado.png"); 
-	ImageIcon Bin5 = new ImageIcon("1 amarillo.png"); 
-	ImageIcon Bin6 = new ImageIcon("1 verde.png"); 
+	private static ImageIcon Bin1 = new ImageIcon("0 azul.png"); 
+	private static ImageIcon Bin2 = new ImageIcon("0 celeste.png"); 
+	private static ImageIcon Bin3 = new ImageIcon("0 naranja.png"); 
+	private static ImageIcon Bin4 = new ImageIcon("0 rosado.png"); 
+	private static ImageIcon Bin5 = new ImageIcon("1 amarillo.png"); 
+	private static ImageIcon Bin6 = new ImageIcon("1 verde.png"); 
 	
-	ImageIcon EBin1 = new ImageIcon("1-numerillo.png"); 
-	ImageIcon EBin2 = new ImageIcon("2-numerillo.png"); 
-	ImageIcon EBin3 = new ImageIcon("3-numerillo.png"); 
-	ImageIcon EBin4 = new ImageIcon("4-numerillo.png"); 
-	ImageIcon EBin5 = new ImageIcon("5-numerillo.png"); 
-	ImageIcon EBin6 = new ImageIcon("6-numerillo.png"); 
-	ImageIcon EBin7 = new ImageIcon("7-numerillo.png"); 
-	ImageIcon EBin8 = new ImageIcon("8-numerillo.png"); 
-	ImageIcon EBin9 = new ImageIcon("9-numerillo.png"); 
-	ImageIcon EBin0 = new ImageIcon("0-numerillo.png"); 
+	private static ImageIcon EBin1 = new ImageIcon("1-numerillo.png"); 
+	private static ImageIcon EBin2 = new ImageIcon("2-numerillo.png"); 
+	private static ImageIcon EBin3 = new ImageIcon("3-numerillo.png"); 
+	private static ImageIcon EBin4 = new ImageIcon("4-numerillo.png"); 
+	private static ImageIcon EBin5 = new ImageIcon("5-numerillo.png"); 
+	private static ImageIcon EBin6 = new ImageIcon("6-numerillo.png"); 
+	private static ImageIcon EBin7 = new ImageIcon("7-numerillo.png"); 
+	private static ImageIcon EBin8 = new ImageIcon("8-numerillo.png"); 
+	private static ImageIcon EBin9 = new ImageIcon("9-numerillo.png"); 
+	private static ImageIcon EBin0 = new ImageIcon("0-numerillo.png"); 
 
 	
-	ImageIcon RBin1 = new ImageIcon("boton 1 encendido.png"); 
-	ImageIcon RBin2 = new ImageIcon("boton 2 on.png"); 
-	ImageIcon RBin3 = new ImageIcon("boton4off.png"); 
-	ImageIcon RBin4 = new ImageIcon("boton8off.png"); 
-	ImageIcon RBin5 = new ImageIcon("boton16off.png"); 
-	ImageIcon RBin6 = new ImageIcon("boton32on.png"); 
+	private static ImageIcon RBin1 = new ImageIcon("boton 1 encendido.png"); 
+	private static ImageIcon RBin2 = new ImageIcon("boton 2 on.png"); 
+	private static ImageIcon RBin3 = new ImageIcon("boton4off.png"); 
+	private static ImageIcon RBin4 = new ImageIcon("boton8off.png"); 
+	private static ImageIcon RBin5 = new ImageIcon("boton16off.png"); 
+	private static ImageIcon RBin6 = new ImageIcon("boton32on.png"); 
 	
-	ImageIcon Sum1 = new ImageIcon("s_+.png"); 
-	ImageIcon Sum2 = new ImageIcon("s_+.png"); 
-	ImageIcon Sum3 = new ImageIcon("s_+.png"); 
-	ImageIcon Sum4 = new ImageIcon("s_+.png"); 
-	ImageIcon Sum5 = new ImageIcon("s_+.png"); 
+	private static ImageIcon Sum1 = new ImageIcon("s_+.png"); 
+	private static ImageIcon Sum2 = new ImageIcon("s_+.png"); 
+	private static ImageIcon Sum3 = new ImageIcon("s_+.png"); 
+	private static ImageIcon Sum4 = new ImageIcon("s_+.png"); 
+	private static ImageIcon Sum5 = new ImageIcon("s_+.png"); 
 
 	
-	ImageIcon Igual = new ImageIcon("igual.png"); 
+	private static ImageIcon Igual = new ImageIcon("igual.png"); 
 	
 	
-	private final JLabel bin1 = new JLabel (Bin1);
-	private final JLabel bin2 = new JLabel (Bin2);
-	private final JLabel bin3 = new JLabel (Bin3);
-	private final JLabel bin4 = new JLabel (Bin4);
-	private final JLabel bin5 = new JLabel (Bin5);
-	private final JLabel bin6 = new JLabel (Bin6);
+	private static JLabel bin1 = new JLabel (Bin1);
+	private static JLabel bin2 = new JLabel (Bin2);
+	private static JLabel bin3 = new JLabel (Bin3);
+	private static JLabel bin4 = new JLabel (Bin4);
+	private static JLabel bin5 = new JLabel (Bin5);
+	private static JLabel bin6 = new JLabel (Bin6);
 	
-	private final JButton Ebin1 = new JButton (EBin1);
-	private final JButton Ebin2 = new JButton (EBin2);
-	private final JButton Ebin3 = new JButton (EBin3);
-	private final JButton Ebin4 = new JButton (EBin4);
-	private final JButton Ebin5 = new JButton (EBin5);
-	private final JButton Ebin6 = new JButton (EBin6);
-	private final JButton Ebin7 = new JButton (EBin3);
-	private final JButton Ebin8 = new JButton (EBin4);
-	private final JButton Ebin9 = new JButton (EBin5);
-	private final JButton Ebin0 = new JButton (EBin0);
+	private static JButton Ebin1 = new JButton (EBin1);
+	private static JButton Ebin2 = new JButton (EBin2);
+	private static JButton Ebin3 = new JButton (EBin3);
+	private static JButton Ebin4 = new JButton (EBin4);
+	private static JButton Ebin5 = new JButton (EBin5);
+	private static JButton Ebin6 = new JButton (EBin6);
+	private static JButton Ebin7 = new JButton (EBin7);
+	private static JButton Ebin8 = new JButton (EBin8);
+	private static JButton Ebin9 = new JButton (EBin9);
+	private static JButton Ebin0 = new JButton (EBin0);
 	
-	private final JButton Rbin1 = new JButton (RBin1);
-	private final JButton Rbin2 = new JButton (RBin2);
-	private final JButton Rbin3 = new JButton (RBin3);
-	private final JButton Rbin4 = new JButton (RBin4);
-	private final JButton Rbin5 = new JButton (RBin5);
-	private final JButton Rbin6 = new JButton (RBin6);
+	private static JLabel Rbin1 = new JLabel (RBin1);
+	private static JLabel Rbin2 = new JLabel (RBin2);
+	private static JLabel Rbin3 = new JLabel (RBin3);
+	private static JLabel Rbin4 = new JLabel (RBin4);
+	private static JLabel Rbin5 = new JLabel (RBin5);
+	private static JLabel Rbin6 = new JLabel (RBin6);
 	
-	private final JLabel sum1 = new JLabel (Sum1);
-	private final JLabel sum2 = new JLabel (Sum2);
-	private final JLabel sum3 = new JLabel (Sum3);
-	private final JLabel sum4 = new JLabel (Sum4);
-	private final JLabel sum5 = new JLabel (Sum5);
+	private static JLabel sum1 = new JLabel (Sum1);
+	private static JLabel sum2 = new JLabel (Sum2);
+	private static JLabel sum3 = new JLabel (Sum3);
+	private static JLabel sum4 = new JLabel (Sum4);
+	private static JLabel sum5 = new JLabel (Sum5);
 
 	
-	private final JLabel igual = new JLabel (Igual);
+	private static JLabel igual = new JLabel (Igual);
 	
-	private final JLabel Ususario = new JLabel ("Usuario");
-	private final JTextField Decimal= new JTextField(2);
+	private static JLabel Ususario = new JLabel ("Usuario");
+	private static JTextField Decimal= new JTextField(2);
 
 	
 	

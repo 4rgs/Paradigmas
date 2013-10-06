@@ -12,10 +12,10 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public class VentanaEmergenteVolverMenu extends JFrame {
 	
-	private final JLabel volver = new JLabel ("Deseas Regresar?");
+	private static JLabel volver = new JLabel ("Deseas Regresar?");
 
-	private final JButton si = new JButton ("si");
-	private final JButton no = new JButton ("no");
+	private static JButton si = new JButton ("si");
+	private static JButton no = new JButton ("no");
 	
 	public VentanaEmergenteVolverMenu(){
 		

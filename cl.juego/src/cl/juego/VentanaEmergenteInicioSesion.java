@@ -16,12 +16,12 @@ import javax.swing.SpringLayout;
 @SuppressWarnings("serial")
 public class VentanaEmergenteInicioSesion extends JFrame {
 	
-	private final JLabel usuario = new JLabel ("Usuario       ");
+	private static JLabel usuario = new JLabel ("Usuario       ");
 	
-	private final JTextField campo_usuario = new JTextField( 17 );
+	private static JTextField campo_usuario = new JTextField( 17 );
 	
-	private final JButton Registrarse = new JButton ("Registrarse");
-	private final JButton aceptar = new JButton ("aceptar");
+	private static JButton Registrarse = new JButton ("Registrarse");
+	private static JButton aceptar = new JButton ("aceptar");
 	
 	
 	public VentanaEmergenteInicioSesion(){
