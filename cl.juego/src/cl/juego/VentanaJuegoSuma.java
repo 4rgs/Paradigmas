@@ -72,7 +72,6 @@ public class VentanaJuegoSuma extends JFrame{
 		setSize(900,600);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
         
 		
