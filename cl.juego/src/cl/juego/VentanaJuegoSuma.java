@@ -73,12 +73,12 @@ public class VentanaJuegoSuma extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(false);
 		this.setLayout(null);
-        
+        Font font1= new Font("ARIAL",Font.Italic,"22");
 		
-		cerocero.setFont(new Font( "Arial",Font.ITALIC, 20));
-		cerouno.setFont(new Font( "Arial",Font.ITALIC, 20));
-		unocero.setFont(new Font( "Arial",Font.ITALIC, 20));
-		unouno.setFont(new Font( "Arial",Font.ITALIC, 20));
+		cerocero.setFont(font1);
+		cerouno.setFont(font1);
+		unocero.setFont(font1);
+		unouno.setFont(font1);
 		
 		cerocero.setBounds(55,420,100,30);
 		cerouno.setBounds(55,437,100,30);
