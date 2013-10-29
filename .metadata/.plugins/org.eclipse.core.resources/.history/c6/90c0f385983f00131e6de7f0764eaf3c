@@ -1,0 +1,107 @@
+package cl.juego;
+import java.awt.datatransfer.*;
+import java.awt.dnd.*;
+import java.io.Reader;
+import javax.swing.*;
+
+
+public class DragAndDropTest extends JFrame implements DropTargetListener
+{
+  private JTextPane text;
+  private DropTarget target;
+
+  public DragAndDropTest()
+  {
+    //Initiate small GUI
+    setSize(400, 400 );
+    text = new JTextPane();
+    target = new DropTarget(text, this);
+    getContentPane().add( text );
+    show();
+  }
+
+  public void drop(DropTargetDropEvent dtde) 
+  {
+    //Output some info
+    System.out.println("DragAndDropTest.drop dtde:"+dtde);
+    System.out.println("dtde.isLocalTransfer: "+dtde.isLocalTransfer());
+    System.out.println("dtde.getDropAction:"+dtde.getDropAction());
+    
+    //Accepts the drop on this component,
+    //using the action ACTION_COPY to copy the text
+    dtde.acceptDrop( DnDConstants.ACTION_COPY ); //ACTION_COPY_OR_MOVE
+    
+    //See what the drop object contains
+    DataFlavor df[] = dtde.getCurrentDataFlavors();
+    Transferable transf =  dtde.getTransferable();
+    
+    for(int i = 0; i < df.length; i++)
+    {
+      System.out.println("df "+i+": "+df[i]+", getRepresentationClass: "+df[i].getRepresentationClass());
+    }
+    
+    System.out.println("transf: "+transf);
+    
+    //Retreive the data from the drop
+    
+    Object data = null;
+    Reader reader;
+    String str = "";
+    int read;
+    try
+    {
+      // only the first DataFlavor seems to contain interesting text
+      // (However, I would like some comments here)
+      data = transf.getTransferData( df[0] );
+      System.out.println("data: "+data);
+      reader = df[0].getReaderForText( transf );
+      
+      //read the data one by one character
+      while( ( read = reader.read() ) != -1 )
+      {
+        str += (char)read;
+      }
+    }
+    catch(Exception e)
+    {
+      System.out.println("Error getting data: "+e);
+    }
+     
+    //add the dropped string to the JTextPane
+    text.setText( text.getText() + "\n" + str );
+    
+    //notify the source of the D&D action that the drop
+    //transfare actions are finished
+    dtde.dropComplete( true );
+
+  }
+  
+  // These methods have to be included becaus they are part of
+  // the DropTargetListener interface.
+
+  public void dragEnter(DropTargetDragEvent dtde)
+  {
+    System.out.println("DragAndDropTest.dragEnter dtde:"+dtde); 
+  }
+
+  public void dragExit(DropTargetEvent dte)
+  {
+    System.out.println("DragAndDropTest.dragExit dtde:"+dte); 
+  }
+
+  public void dragOver(DropTargetDragEvent dtde)
+  {
+    System.out.println("DragAndDropTest.dragOver dtde:"+dtde); 
+  }
+
+  public void dropActionChanged(DropTargetDragEvent dtde) 
+  {
+    System.out.println("DragAndDropTest.dropActionChanged dtde:"+dtde); 
+  }
+
+
+  public static void main( String [] args)
+  {
+    new DragAndDropTest();  
+  }
+}

@@ -1,0 +1,50 @@
+package cl.juego;
+
+import java.awt.Cursor;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class DragGesture extends JFrame implements DragGestureListener, Transferable {
+  public DragGesture() {
+    setTitle("Drag Gesture");
+    JLabel left = new JLabel("text");
+    DragSource ds = new DragSource();
+    ds.createDefaultDragGestureRecognizer(left, DnDConstants.ACTION_COPY, this);
+    add(left);
+    pack();
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setVisible(true);
+  }
+
+  public void dragGestureRecognized(DragGestureEvent event) {
+    Cursor cursor = null;
+    if (event.getDragAction() == DnDConstants.ACTION_COPY) {
+      cursor = DragSource.DefaultCopyDrop;
+    }
+    event.startDrag(cursor, this);
+  }
+
+  public Object getTransferData(DataFlavor flavor) {
+    return null;
+  }
+
+  public DataFlavor[] getTransferDataFlavors() {
+    return new DataFlavor[0];
+  }
+
+  public boolean isDataFlavorSupported(DataFlavor flavor) {
+    return false;
+  }
+
+  public static void main(String[] args) {
+    new DragGesture();
+  }
+
+}

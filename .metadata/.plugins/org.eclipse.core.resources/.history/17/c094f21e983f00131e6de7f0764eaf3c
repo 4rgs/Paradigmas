@@ -1,0 +1,240 @@
+package cl.juego;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.*;
+import java.io.IOException;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import net.della.stuff.gui.dnd2.CustomCell;
+
+public class DndOneFileDemo {
+
+private JFrame frame;
+protected JToolBar toolBar;
+
+public DndOneFileDemo() {
+frame = new JFrame();
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setBounds(200, 200, 800, 600);
+}
+
+protected void start() {
+init();
+frame.setVisible(true);
+}
+
+public static void main(String[] args) {
+new DndOneFileDemo().start();
+}
+
+protected void init() {
+Box centralPanel = Box.createHorizontalBox();
+frame.getContentPane().add(centralPanel);
+System.out.println("-------- Platform informations ----------");
+System.out.println("isDragImageSupported: " + DragSource.isDragImageSupported());
+System.out.println("-----------------------------------------");
+
+JList sourceList = initDragList();
+JTable sourceTable = initDragTable();
+
+Box sourceListContainer = createVerticalBox(sourceList);
+sourceListContainer.setBorder(BorderFactory.createTitledBorder("Drag Source"));
+centralPanel.add(sourceListContainer);
+centralPanel.add(createSeparator(20, 20));
+
+Box sourceTableContainer = createVerticalBox(sourceTable);
+sourceTableContainer.setBorder(BorderFactory.createTitledBorder("Drag Table"));
+centralPanel.add(sourceTableContainer);
+centralPanel.add(createSeparator(20, 20));
+
+JList targetList = new JList(new String[] { "Artist 2" });
+DropTarget listDT = new DropTarget(targetList, new DropBehavior());
+listDT.setDefaultActions(DnDConstants.ACTION_COPY);
+Box targetListContainer = createVerticalBox(targetList);
+targetListContainer.setBorder(BorderFactory.createTitledBorder("Drop Target"));
+centralPanel.add(targetListContainer);
+centralPanel.add(createSeparator(20, 20));
+
+Box droppableArea = createVerticalBox();
+DropTarget panelDT = new DropTarget(droppableArea, new DropBehavior());
+panelDT.setDefaultActions(DnDConstants.ACTION_COPY);
+JLabel label = new JLabel("Drop Here!");
+DropTarget labelDT = new DropTarget(label, new DropBehavior());
+labelDT.setDefaultActions(DnDConstants.ACTION_COPY);
+droppableArea.add(label);
+droppableArea.setBorder(BorderFactory.createTitledBorder("Drop Area"));
+// droppableArea.setTransferHandler(new TargetTransferHandler());
+centralPanel.add(droppableArea);
+
+frame.pack();
+
+}
+
+private JList initDragList() {
+final JList sourceList = new JList(new String[] { "Artist 1", "Artist 2", "Artist 3" });
+// sourceList.setDragEnabled(true);
+new Dragger(sourceList) {
+@Override
+protected Transferable createTransferable(JComponent c) {
+return new EMPTY_TRANSFERABLE();
+}
+};
+return sourceList;
+}
+
+private JTable initDragTable() {
+JTable table = new JTable();
+DefaultTableModel dataModel = new DefaultTableModel();
+dataModel.addColumn("Name");
+dataModel.addColumn("Special");
+dataModel.addColumn("Avatar");
+dataModel.addRow(new Object[] { "pino", "il bello" });
+dataModel.addRow(new Object[] { "ugo", "lo scaltro" });
+table.setModel(dataModel);
+
+TableColumn column = table.getColumn("Name");
+CustomCell cellRenderer = new CustomCell(new JCheckBox());
+column.setCellRenderer(cellRenderer);
+column.setCellEditor(cellRenderer);
+
+table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+// new Dragger(table) {
+// @Override
+// protected Transferable createTransferable(JComponent arg0) {
+// return new EMPTY_TRANSFERABLE();
+// }
+// };
+table.setDragEnabled(true);
+return table;
+}
+
+// ----------------------------------------//
+// -- Support classes and static methods --//
+// ----------------------------------------//
+
+private final class EMPTY_TRANSFERABLE implements Transferable {
+@Override
+public boolean isDataFlavorSupported(DataFlavor flavor) {
+return true;
+}
+
+@Override
+public DataFlavor[] getTransferDataFlavors() {
+return new DataFlavor[0];
+}
+
+@Override
+public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException,
+IOException {
+return "ok";
+}
+}
+
+abstract class Dragger implements DragGestureListener, DragSourceListener,
+DragSourceMotionListener {
+
+private final DragSource dragSource;
+protected final JComponent comp;
+
+public Dragger(JComponent c) {
+this(DragSource.getDefaultDragSource(), c);
+}
+
+public Dragger(DragSource dragSource, JComponent c) {
+this.comp = c;
+this.dragSource = dragSource;
+this.dragSource.createDefaultDragGestureRecognizer(c, DnDConstants.ACTION_COPY, this);
+this.dragSource.addDragSourceMotionListener(this);
+}
+
+public void dragGestureRecognized(DragGestureEvent dge) {
+dragSource.startDrag(dge, DragSource.DefaultCopyNoDrop, createTransferable(comp), this);
+}
+
+protected abstract Transferable createTransferable(JComponent c);
+
+public void dragDropEnd(DragSourceDropEvent dsde) {
+System.out.println("drop ended");
+}
+
+public void dragEnter(DragSourceDragEvent dsde) {
+// TODO Auto-generated method stub
+}
+
+public void dragExit(DragSourceEvent dse) {
+// TODO Auto-generated method stub
+
+}
+
+public void dragOver(DragSourceDragEvent dsde) {
+// TODO Auto-generated method stub
+}
+
+public void dropActionChanged(DragSourceDragEvent dsde) {
+// TODO Auto-generated method stub
+
+}
+
+public void dragMouseMoved(DragSourceDragEvent dsde) {
+// TODO Auto-generated method stub
+
+}
+
+}
+
+public class DropBehavior implements DropTargetListener {
+
+@Override
+public void dragEnter(DropTargetDragEvent dtde) {
+System.out.println("entered drop area");
+}
+
+@Override
+public void dragExit(DropTargetEvent dte) {
+System.out.println("exitde drop area");
+
+}
+
+@Override
+public void dragOver(DropTargetDragEvent dtde) {
+
+}
+
+@Override
+public void drop(DropTargetDropEvent dtde) {
+System.out.println("dropped!");
+
+}
+
+@Override
+public void dropActionChanged(DropTargetDragEvent dtde) {
+System.out.println("changed action");
+
+}
+
+}
+
+public static Component createSeparator(int width, int height) {
+Component separator = Box.createRigidArea(new Dimension(width, height));
+separator.setMinimumSize(new Dimension(10, 30));
+return separator;
+}
+
+public static Box createVerticalBox() {
+Box box = Box.createVerticalBox();
+box.setOpaque(false);
+return box;
+}
+
+public static Box createVerticalBox(JComponent component) {
+Box box = createVerticalBox();
+box.add(component);
+return box;
+}
+}

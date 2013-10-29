@@ -1,0 +1,104 @@
+package cl.juego;
+
+import java.awt.List;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+import java.io.InputStreamReader;
+
+import com.sun.java.util.jar.pack.Package.File;
+
+class SpoolDragDroplistener implements DropTargetListener {
+
+    public void drop(DropTargetDropEvent event) {
+        // Accept copy drops
+        event.acceptDrop(DnDConstants.ACTION_COPY);
+
+        // Get the transfer which can provide the dropped item data
+        Transferable transferable = event.getTransferable();
+
+        // Get the data formats of the dropped item
+        DataFlavor[] flavors = transferable.getTransferDataFlavors();
+
+        // Loop through the flavors
+        for (DataFlavor flavor : flavors) {
+            try {
+                // If the drop items are files
+                if (flavor.isFlavorJavaFileListType()) {
+
+                    // Get all of the dropped files
+                    List<File> files = (List<File>) transferable
+                            .getTransferData(flavor);
+
+                    // Loop them through
+                    for (File file : files) {
+                        // Print out the file path
+                        // System.out.println("File path is '" +
+                        // file.getPath() + "'.");
+                        //File xmlFormatFile = (File)cboXmlFiles.getSelectedItem();
+                        String input = FileIO.getFileContents(file);
+                        parseContents(input);
+
+                        // only support one file for now
+                        break;
+                    }
+
+                    //event.dropComplete(true);
+
+
+                } else if(flavor.isRepresentationClassInputStream()) {
+                    //StringReader isr = (StringReader)transferable.getTransferData(flavor);
+                         /******* NOT WORKING *******/
+                    InputStreamReader isr = new InputStreamReader(((InputStream)transferable.getTransferData(flavor)),"UTF-8");
+                    //InputStream  is = (InputStream)transferable.getTransferData(flavor);
+                    //String theString = new Scanner(is).useDelimiter("\\A").next();
+                    //is.close();
+
+                    StringBuilder sb = new StringBuilder();
+                    int c=-1;
+                    while( (c=isr.read()) != -1) {
+                        sb.append((char)c);
+                    }
+
+                    parseContents(sb.toString());
+
+                }
+
+            } catch (Exception e) {
+                // Print out the error stack
+
+                editor.setText("ERROR: "+e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+
+        // Inform that the drop is complete
+        event.dropComplete(true);
+    }
+
+    public void dropActionChanged(DropTargetDragEvent dtde) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void dragEnter(DropTargetDragEvent dtde) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void dragExit(DropTargetEvent dte) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void dragOver(DropTargetDragEvent dtde) {
+        // TODO Auto-generated method stub
+
+    }
+
+}

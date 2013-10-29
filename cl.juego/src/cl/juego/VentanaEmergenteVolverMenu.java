@@ -9,8 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-@SuppressWarnings("serial")
-public class VentanaEmergenteVolverMenu extends JFrame {
+ 
+public class VentanaEmergenteVolverMenu extends JFrame implements ActionListener {
 	
 	private static JLabel volver = new JLabel ("Deseas Regresar?");
 
@@ -30,25 +30,30 @@ public class VentanaEmergenteVolverMenu extends JFrame {
 		volver.setBounds(100,10,400,20);
 		volver.setFont(new Font( "Calibri",Font.BOLD, 25)); 		
 		volver.setForeground( Color.BLACK);
+		si.addActionListener(this);
+		no.addActionListener(this);
 		
 		add(si);
 		add(no);
 		add(volver);
 		
-		si.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				new Menu();
-				setVisible(false);
-			}
-		});
-		no.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new VentanaJuegoCartas();
-				setVisible(false);
-			}
-		});
-		
 		this.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource()==si) {
+			
+	    	   new Menu();
+			   this.dispose();
+	        }
+		if (e.getSource()==no) {
+			
+	    	   new VentanaJuegoGlobos();
+			   this.dispose();
+	        }
+		
 	}
 
 }
