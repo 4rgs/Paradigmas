@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class VentanaJuegoCartas extends JFrame implements ActionListener{
 	
 	private static JButton menu = new JButton ("Menu");

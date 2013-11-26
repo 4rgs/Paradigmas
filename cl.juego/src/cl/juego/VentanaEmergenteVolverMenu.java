@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
  
+@SuppressWarnings("serial")
 public class VentanaEmergenteVolverMenu extends JFrame implements ActionListener {
 	
 	private static JLabel volver = new JLabel ("Deseas Regresar?");

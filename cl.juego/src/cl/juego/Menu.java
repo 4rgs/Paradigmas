@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cl.juego.pochitos.*;
 
 @SuppressWarnings("serial")
 public class Menu extends JFrame implements ActionListener{
@@ -99,7 +100,7 @@ public class Menu extends JFrame implements ActionListener{
 			this.dispose();
 		}
 		if(e.getSource()==multiplicaacion){
-			new VentanaJuegoPajaros();
+			new VentanaPochitos();
 			this.dispose();
 		}
 		if(e.getSource()==cartas){

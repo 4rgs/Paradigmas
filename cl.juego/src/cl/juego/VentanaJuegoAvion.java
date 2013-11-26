@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+@SuppressWarnings("serial")
 public class VentanaJuegoAvion extends JFrame implements ActionListener{
  
 	private static JButton menu = new JButton ("Menu");

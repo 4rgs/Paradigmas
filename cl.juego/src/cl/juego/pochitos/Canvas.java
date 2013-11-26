@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import cl.juego.*;
 import cl.juego.pochitos.img.CargarImagenes;
 
 @SuppressWarnings("serial")
@@ -41,11 +41,7 @@ public class Canvas extends JPanel implements ActionListener{
         private static JLabel numB1 = new JLabel();
         
 
-        //BOTONES DEL MENU
-        private static JButton menu = new JButton ("Menu");
-        private static JButton pausa = new JButton ("Pausa");
-        private static JButton restaurar = new JButton ("Restaurar");
-        private static JButton ayuda = new JButton ("Ayuda");
+
         
         
         //IMAGENES DE LOS POLLITOS Y LAS CUERDAS
@@ -55,21 +51,22 @@ public class Canvas extends JPanel implements ActionListener{
 		private static JLabel Lpollito2 = new JLabel();
 		private static JLabel Lpollito = new JLabel();
 		private static JLabel sigigual = new JLabel();	
-		
-		private static JButton generador1 = new JButton();
-		private static JButton generador0 = new JButton();
-        
         private ArrayList<Numero> numeros;
+        
+        private static JButton comprobar = new JButton("Comprobar");
         
         public Canvas(){
         		this.setLayout(null);
                 numeros = new ArrayList<>();
+                for(int i=0;i<6;i++){
+                	numeros.add(new Numero(720,470,"uno"));
+                }
+                for(int i=0;i<6;i++){
+                	numeros.add(new Numero(765,470,"cero"));
+                }
                 iniciarPosiciones();
                 cargarIconos();
                 agregarObjetos();
-                generador1.addActionListener(this);
-                generador0.addActionListener(this);
-                
                 
                 super.setSize(900,600);
                 Adaptador ad = new Adaptador();
@@ -153,20 +150,16 @@ public class Canvas extends JPanel implements ActionListener{
                 numB2.setIcon(new ImageIcon(cargador.cargarImagen(random())));
                 numB1.setIcon(new ImageIcon(cargador.cargarImagen(random())));
                 
-                generador1.setIcon(new ImageIcon(cargador.cargarImagen("uno")));
-                generador0.setIcon(new ImageIcon(cargador.cargarImagen("cero")));
         }
         private void agregarObjetos(){
-                super.add(menu);
-                super.add(pausa);
-                super.add(restaurar);
-                super.add(ayuda);
+              
                 super.add(lineaPollitos);
                 super.add(lineaPollitos2);
                 super.add(Lpollito1);
                 super.add(Lpollito2);
                 super.add(Lpollito);
                 super.add(sigigual);
+                super.add(comprobar);
 
                 super.add(numA32);
                 super.add(numA16);
@@ -182,21 +175,18 @@ public class Canvas extends JPanel implements ActionListener{
                 super.add(numB2);
                 super.add(numB1);
                 
-                super.add(generador1);
-                super.add(generador0);
         }
         private void iniciarPosiciones(){
-	        	menu.setBounds(740,20,90,20);
-	            pausa.setBounds(650,20,90,20);
-	            restaurar.setBounds(10,20,110,20);        
-	            ayuda.setBounds(130,20,110,20);
+	        	
 	            
 	            lineaPollitos.setBounds(0,100, 900, 100);
 	            lineaPollitos2.setBounds(0,300, 900, 100);
 	            Lpollito1.setBounds(0,20,200,200);
 	            Lpollito2.setBounds(0,200,200,200);
 	            Lpollito.setBounds(500,140,400,200);
-	            sigigual.setBounds(400,170,200,200);
+	            sigigual.setBounds(500,170,200,200);
+	            
+	            comprobar.setBounds(690,400,110,20);;
 	                    
 	            numA32.setBounds(180,152,100,100);
 	       		numA16.setBounds(220,152,100,100);
@@ -211,31 +201,18 @@ public class Canvas extends JPanel implements ActionListener{
 	       		numB4.setBounds(300,349,100,100);
 	       		numB2.setBounds(340,350,100,100);
 	       		numB1.setBounds(380,352,100,100);	
-	       		
-	       		generador1.setBounds(700,450,40,98);
-	       		generador0.setBounds(745,450,40,98);
         }
-        private Numero generarNumeros(String numero){
-        	return new Numero(430,250,numero);
+        private Numero crearNumeros(String numero){
+        	return new Numero(300,300,numero);
         }
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==ayuda){
-				
+			if(e.getSource()==comprobar){
+				//metodo comprobar
 			}
-			if(e.getSource()==menu){
-				
-			}
-			if(e.getSource()==restaurar){
-				new Ventana();
-			}
-			if(e.getSource()==generador1){
-				numeros.add(generarNumeros("uno"));
-			}
-			if(e.getSource()==generador0){
-				numeros.add(generarNumeros("cero"));
-			}
+			
 		}
+
 
 }
