@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import cl.juego.pochitos.*;
+import cl.juego.juegocartas.VentanaCartas;
+import cl.juego.pochitos.VentanaPochitos;
 
 @SuppressWarnings("serial")
 public class Menu extends JFrame implements ActionListener{
@@ -92,7 +93,7 @@ public class Menu extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==dec_bin){
-			new VentanaJuegoCartas();
+			new VentanaCartas();
 			this.dispose();
 		}
 		if(e.getSource()==suma_resta){
