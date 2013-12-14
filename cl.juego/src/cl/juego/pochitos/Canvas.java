@@ -12,14 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import cl.juego.*;
+
 import cl.juego.pochitos.img.CargarImagenes;
 
 @SuppressWarnings("serial")
 public class Canvas extends JPanel implements ActionListener{
         
         public final static int GAP = 10;
-        public final static int TOTAL_NUMEROS = 6;
+        public final static int TOTAL_NUMEROS = 5;
         private int seleccionado;
 
 
@@ -53,16 +53,28 @@ public class Canvas extends JPanel implements ActionListener{
 		private static JLabel sigigual = new JLabel();	
         private ArrayList<Numero> numeros;
         
+        private static char stringA[]=null;
+        private static char stringB[]=null;
         private static JButton comprobar = new JButton("Comprobar");
         
         public Canvas(){
         		this.setLayout(null);
-                numeros = new ArrayList<>();
-                for(int i=0;i<6;i++){
-                	numeros.add(new Numero(720,470,"uno"));
+                numeros = new ArrayList<>(TOTAL_NUMEROS);
+                for(int i=0;i<TOTAL_NUMEROS;i++){
+                	numeros.add(i,new Numero(720,470,"1"));
                 }
-                for(int i=0;i<6;i++){
-                	numeros.add(new Numero(765,470,"cero"));
+                for(int i=0;i<TOTAL_NUMEROS;i++){
+                	numeros.add(i+TOTAL_NUMEROS,new Numero(765,470,"0"));
+                }
+                String[] NUMEROS={"101011","000101","110110","101010","011001","100001","101101","001010","011010","000111"};
+                Random rand=new Random();
+                int a=rand.nextInt(10);
+                int A= Integer.parseInt(NUMEROS[a], 2);
+                int b=rand.nextInt(10);
+                int B= Integer.parseInt(NUMEROS[b], 2);
+                for(int i=0;i<NUMEROS[a].length();i++){
+                	stringA[i]=NUMEROS[a].charAt(i);
+                	stringB[i]=NUMEROS[b].charAt(i);
                 }
                 iniciarPosiciones();
                 cargarIconos();
@@ -72,6 +84,7 @@ public class Canvas extends JPanel implements ActionListener{
                 Adaptador ad = new Adaptador();
                 super.addMouseListener(ad);
                 super.addMouseMotionListener(ad);
+                System.out.println(A+" "+B);
         }
         
         @Override
@@ -121,9 +134,9 @@ public class Canvas extends JPanel implements ActionListener{
         public String random(){
         	Random rnd=new Random();
         	if(rnd.nextInt(2)==1){
-        		return "uno";
+        		return "1";
         	}else{
-        		return "cero";
+        		return "0";
         	}
         }
 
@@ -176,9 +189,7 @@ public class Canvas extends JPanel implements ActionListener{
                 super.add(numB1);
                 
         }
-        private void iniciarPosiciones(){
-	        	
-	            
+        private void iniciarPosiciones(){	            
 	            lineaPollitos.setBounds(0,100, 900, 100);
 	            lineaPollitos2.setBounds(0,300, 900, 100);
 	            Lpollito1.setBounds(0,20,200,200);
@@ -202,17 +213,11 @@ public class Canvas extends JPanel implements ActionListener{
 	       		numB2.setBounds(340,350,100,100);
 	       		numB1.setBounds(380,352,100,100);	
         }
-        private Numero crearNumeros(String numero){
-        	return new Numero(300,300,numero);
-        }
-
-		@Override
+        @Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==comprobar){
-				//metodo comprobar
+				
 			}
 			
 		}
-
-
 }
