@@ -28,18 +28,17 @@ public class VentanaPochitos extends JFrame implements ActionListener{
                 canvas.add(ayuda);
                 
                 menu.setBounds(740,20,90,20);
-	        pausa.setBounds(650,20,90,20);
-	        restaurar.setBounds(10,20,110,20);        
-	        ayuda.setBounds(130,20,110,20);
+                pausa.setBounds(650,20,90,20);
+                restaurar.setBounds(10,20,110,20);        
+                ayuda.setBounds(130,20,110,20);
                 
-	        menu.addActionListener(this);
-	        pausa.addActionListener(this);
-	        restaurar.addActionListener(this);
-	        ayuda.addActionListener(this);
+                menu.addActionListener(this);
+                pausa.addActionListener(this);
+                restaurar.addActionListener(this);
+                ayuda.addActionListener(this);
 	           
-	            
-                
                 super.setSize(900,600);
+                super.setResizable(false);
                 super.add(canvas);
                 super.setLocationRelativeTo(null);
                 super.setVisible(true);

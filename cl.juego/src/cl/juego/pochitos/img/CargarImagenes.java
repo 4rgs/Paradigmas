@@ -5,8 +5,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class CargarImagenes {
-        public Image cargarImagen(String numero){
-                Image imagen = new ImageIcon(getClass().getResource(numero+".png")).getImage();
+        public Image cargarImagen(String nombre){
+                Image imagen = new ImageIcon(getClass().getResource(nombre+".png")).getImage();
                 return imagen;
         }
 }

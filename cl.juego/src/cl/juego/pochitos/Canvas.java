@@ -1,6 +1,8 @@
 package cl.juego.pochitos;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -8,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,29 +23,17 @@ public class Canvas extends JPanel implements ActionListener{
         
         public final static int GAP = 10;
         public final static int TOTAL_NUMEROS = 5;
+        public final static int LARGO_BINARIO= 6;
         private int seleccionado;
 
 
         //NUMEROS A (BINARIOS)
-        private static JLabel numA32 = new JLabel();
-        private static JLabel numA16 = new JLabel();
-        private static JLabel numA8 = new JLabel();
-        private static JLabel numA4 = new JLabel();
-        private static JLabel numA2 = new JLabel();
-        private static JLabel numA1 = new JLabel();
-
-
+        private static JLabel[] numA = new JLabel[LARGO_BINARIO];
         //NUMEROS B (BINARIOS)
-        private static JLabel numB32 = new JLabel();
-        private static JLabel numB16 = new JLabel();
-        private static JLabel numB8 = new JLabel();
-        private static JLabel numB4 = new JLabel();
-        private static JLabel numB2 = new JLabel();
-        private static JLabel numB1 = new JLabel();
-        
-
-
-        
+        private static JLabel[] numB = new JLabel[LARGO_BINARIO];
+        //Panel Verificacion
+        private static JPanel respuesta=new JPanel();
+        private static JPanel[] panelesInternos=new JPanel[6];
         
         //IMAGENES DE LOS POLLITOS Y LAS CUERDAS
         private static JLabel lineaPollitos = new JLabel();
@@ -53,38 +44,67 @@ public class Canvas extends JPanel implements ActionListener{
 		private static JLabel sigigual = new JLabel();	
         private ArrayList<Numero> numeros;
         
-        private static char stringA[]=null;
-        private static char stringB[]=null;
+        private static char[] stringA=new char[6];
+        private static char[] stringB=new char[6];
+        
+        private final String[] NUMEROS={"000001","000010","000011","000100","000101","000110","000111","001000","001001","001010"};
+        private Random rand=new Random();
+        private int a=rand.nextInt(10);
+        private int A= Integer.parseInt(NUMEROS[a], 2);
+        private int b=rand.nextInt(10);
+        private int B= Integer.parseInt(NUMEROS[b], 2);
+        private String[] nombresCartasA=new String[6];
+        private String[] nombresCartasB=new String[6];
+        private int resultadoDecimal=A*B;
+        private String resultadoBinario=Integer.toBinaryString(resultadoDecimal);
+        
         private static JButton comprobar = new JButton("Comprobar");
         
         public Canvas(){
         		this.setLayout(null);
                 numeros = new ArrayList<>(TOTAL_NUMEROS);
                 for(int i=0;i<TOTAL_NUMEROS;i++){
-                	numeros.add(i,new Numero(720,470,"1"));
+                	numeros.add(i,new Numero(720,470,"uno"));
                 }
                 for(int i=0;i<TOTAL_NUMEROS;i++){
-                	numeros.add(i+TOTAL_NUMEROS,new Numero(765,470,"0"));
+                	numeros.add(i+TOTAL_NUMEROS,new Numero(765,470,"cero"));
                 }
-                String[] NUMEROS={"101011","000101","110110","101010","011001","100001","101101","001010","011010","000111"};
-                Random rand=new Random();
-                int a=rand.nextInt(10);
-                int A= Integer.parseInt(NUMEROS[a], 2);
-                int b=rand.nextInt(10);
-                int B= Integer.parseInt(NUMEROS[b], 2);
-                for(int i=0;i<NUMEROS[a].length();i++){
+                for(int i=0;i<6;i++){
                 	stringA[i]=NUMEROS[a].charAt(i);
                 	stringB[i]=NUMEROS[b].charAt(i);
                 }
-                iniciarPosiciones();
-                cargarIconos();
+               
+                for(int i=0;i<6;i++){
+                	nombresCartasA[i]=binToBin(stringA[i]);
+                	nombresCartasB[i]=binToBin(stringB[i]);
+                }
+                for(int i=0;i<6;i++){
+                	panelesInternos[i]=new JPanel();
+                	panelesInternos[i].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
+                }
+                respuesta.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
+                
+                respuesta.setLayout(new GridLayout(1,6));
+                for(int i=0;i<6;i++){
+                	respuesta.add(panelesInternos[i]);
+                }
+                
                 agregarObjetos();
+                cargarIconos();
+                iniciarPosiciones();
+                
                 
                 super.setSize(900,600);
                 Adaptador ad = new Adaptador();
                 super.addMouseListener(ad);
                 super.addMouseMotionListener(ad);
-                System.out.println(A+" "+B);
+                for(int i=0;i<6;i++){
+                	System.out.println(stringA[i]+"\t"+stringB[i]);
+                	System.out.println(nombresCartasA[i]+"\t"+nombresCartasB[i]);
+                }
+                System.out.println("numero A:"+A+"\nnumero B:"+B);
+                System.out.println("resultado Decimal: "+resultadoDecimal);
+                System.out.println("resutaldo Binario: "+resultadoBinario);
         }
         
         @Override
@@ -108,11 +128,6 @@ public class Canvas extends JPanel implements ActionListener{
                 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                	Numero carta =numeros.get(seleccionado);
-                        if (e.getClickCount() == 2) {
-                                carta.setVisible(!carta.isVisible());
-                                repaint();
-                        }
                 }
                 
                 @Override
@@ -131,15 +146,16 @@ public class Canvas extends JPanel implements ActionListener{
                         
                 }
         }
-        public String random(){
-        	Random rnd=new Random();
-        	if(rnd.nextInt(2)==1){
-        		return "1";
-        	}else{
-        		return "0";
-        	}
+        private String binToBin(char c){
+			String nuevo="";
+        		if(c=='1'){
+        			nuevo="uno";
+        		}
+        		else if(c=='0'){
+        			nuevo="cero";
+        		}
+        	return nuevo;
         }
-
         private void cargarIconos(){
                 CargarImagenes cargador = new CargarImagenes();
                 lineaPollitos.setIcon(new ImageIcon(cargador.cargarImagen("pollit2")));
@@ -149,19 +165,13 @@ public class Canvas extends JPanel implements ActionListener{
                 Lpollito2.setIcon(new ImageIcon(cargador.cargarImagen("pochito 33")));
                 sigigual.setIcon(new ImageIcon(cargador.cargarImagen("iguall")));
 
-                numA32.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numA16.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numA8.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numA4.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numA2.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numA1.setIcon(new ImageIcon(cargador.cargarImagen(random())));
+                for(int i=0;i<6;i++){
+                	numA[i].setIcon(new ImageIcon(cargador.cargarImagen(nombresCartasA[i])));
+                }
+                for(int i=0;i<6;i++){
+                	numB[i].setIcon(new ImageIcon(cargador.cargarImagen(nombresCartasB[i])));
+                }
 
-                numB32.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numB16.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numB8.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numB4.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numB2.setIcon(new ImageIcon(cargador.cargarImagen(random())));
-                numB1.setIcon(new ImageIcon(cargador.cargarImagen(random())));
                 
         }
         private void agregarObjetos(){
@@ -173,20 +183,15 @@ public class Canvas extends JPanel implements ActionListener{
                 super.add(Lpollito);
                 super.add(sigigual);
                 super.add(comprobar);
-
-                super.add(numA32);
-                super.add(numA16);
-                super.add(numA8);
-                super.add(numA4);
-                super.add(numA2);
-                super.add(numA1);
-
-                super.add(numB32);
-                super.add(numB16);
-                super.add(numB8);
-                super.add(numB4);
-                super.add(numB2);
-                super.add(numB1);
+                super.add(respuesta);
+                for(int i=0;i<6;i++){
+                	numA[i]=new JLabel();
+                	numB[i]=new JLabel();
+                }
+                for(int i=0;i<6;i++){
+                	super.add(numA[i]);
+                	super.add(numB[i]);
+                }
                 
         }
         private void iniciarPosiciones(){	            
@@ -196,22 +201,19 @@ public class Canvas extends JPanel implements ActionListener{
 	            Lpollito2.setBounds(0,200,200,200);
 	            Lpollito.setBounds(500,140,400,200);
 	            sigigual.setBounds(500,170,200,200);
+	            respuesta.setBounds(550,262,230,90);
+	            comprobar.setBounds(690,400,110,20);
 	            
-	            comprobar.setBounds(690,400,110,20);;
-	                    
-	            numA32.setBounds(180,152,100,100);
-	       		numA16.setBounds(220,152,100,100);
-	       		numA8.setBounds(260,152,100,100);
-	       		numA4.setBounds(300,152,100,100);
-	       		numA2.setBounds(340,152,100,100);
-	       		numA1.setBounds(380,152,100,100);		
-	       		
-	       		numB32.setBounds(180,348,100,100);
-	       		numB16.setBounds(220,348,100,100);
-	       		numB8.setBounds(260,348,100,100);
-	       		numB4.setBounds(300,349,100,100);
-	       		numB2.setBounds(340,350,100,100);
-	       		numB1.setBounds(380,352,100,100);	
+	            int x=180;
+	            for(int i=0;i<6;i++){
+	            	numA[i].setBounds(x,152,100,100);
+	            	x+=40;
+	            }
+	            x=180;
+	            for(int i=0;i<6;i++){
+	            	numB[i].setBounds(x,350,100,100);
+	            	x+=40;
+	            }
         }
         @Override
 		public void actionPerformed(ActionEvent e) {

@@ -16,8 +16,6 @@ import cl.juego.pochitos.VentanaPochitos;
 @SuppressWarnings("serial")
 public class Menu extends JFrame implements ActionListener{
 
-	// declaracion de botones con nombre y panel(fondo)
-	//declarar tipo de dato, tipo de boton, nombre boton, instanciar (new JButton)
 	private static JButton boton2 = new JButton("Ayuda");
 	private static JButton btnIdentificar = new JButton("Inicio Sesion");
 	private static JButton btnJugar = new JButton("Jugar");
@@ -47,6 +45,7 @@ public class Menu extends JFrame implements ActionListener{
 		super("Menu");
 		this.setSize (900,600);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		p1.setLayout(null);
