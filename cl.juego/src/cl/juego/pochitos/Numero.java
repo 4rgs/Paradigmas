@@ -15,7 +15,7 @@ public class Numero implements Dibujable {
         
         private int x;
         private int y;
-        private int numero;
+        private char numero;
         private Image imagen;
         private boolean visible;
         private boolean encima;
@@ -24,6 +24,11 @@ public class Numero implements Dibujable {
                 this.setVisible(true);
                 this.x = x;
                 this.y = y;
+                if(nombre=="uno"){
+                	numero='1';
+                }else{
+                	numero='0';
+                }
                 CargarImagenes cargador = new CargarImagenes();
                 this.setImagen(cargador.cargarImagen(nombre));
                 this.encima = false;
@@ -69,11 +74,11 @@ public class Numero implements Dibujable {
                 this.y = y;
         }
 
-        public int getCarta() {
+        public char getCarta() {
                 return numero;
         }
 
-        public void setNumero(int numero) {
+        public void setNumero(char numero) {
                 this.numero = numero;
         }
 
@@ -91,10 +96,6 @@ public class Numero implements Dibujable {
 
         public void setVisible(boolean visible) {
                 this.visible = visible;
-        }
-
-        public boolean isEncima() {
-                return encima;
         }
 
         public void setEncima(boolean encima) {

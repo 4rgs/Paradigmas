@@ -103,10 +103,6 @@ public class Menu extends JFrame implements ActionListener{
 			new VentanaPochitos();
 			this.dispose();
 		}
-		if(e.getSource()==cartas){
-			new VentanaJuegoGlobos();
-			this.dispose();
-		}
 		if (e.getSource()==boton2) {
 	        new Ayuda();
 	    }

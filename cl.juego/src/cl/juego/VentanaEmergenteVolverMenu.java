@@ -51,7 +51,6 @@ public class VentanaEmergenteVolverMenu extends JFrame implements ActionListener
 	        }
 		if (e.getSource()==no) {
 			
-	    	   new VentanaJuegoGlobos();
 			   this.dispose();
 	        }
 		
